@@ -1,11 +1,30 @@
-// src/App.js
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import axios from "axios";
+import Login from "./components/startUpPages/login.js";
+import SignUp from "./components/startUpPages/signUp.js";
+import LandingPage from "./components/startUpPages/loadingPage.js";
+
+// oAuth for 3rd party authentication
 
 function App() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api")
+      .then((response) => setData(response.data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   return (
-    <div className="App">
-      <h1>Welcome to Trail-Tuned</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
 }
 
