@@ -26,7 +26,7 @@ function startUpPage() {
         <div className="loginContainer">
           <img src="/path/to/your/logo.png" alt="App Logo" />
           <div>
-            <button onClick={() => navigate("/login")}>Login</button>
+            <button onClick={() => navigate("/login/login.js")}>Login</button>
             <button onClick={() => navigate("/signup")}>Sign Up</button>
           </div>
         </div>
