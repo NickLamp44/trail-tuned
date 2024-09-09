@@ -1,22 +1,8 @@
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.backGround {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background: url("./assets/mtn.svg") no-repeat center center fixed;
   background-size: cover;
-}
-
-.loading-text {
-  font-size: 2rem;
-  color: white;
 }
