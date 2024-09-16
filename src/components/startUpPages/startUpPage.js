@@ -1,61 +1,38 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
+import React, { useState } from "react";
+import Login from "./login";
+import SignUp from "./signUp";
 
 // Styling
 import "./startUpPage.css";
-
 function StartUpPage() {
-  const navigate = useNavigate();
+  const [view, setView] = useState("start");
 
-  const handleGoogleLoginSuccess = (response) => {
-    // Handle Google OAuth success
-    console.log(response);
-    // You can navigate to a dashboard or home page
+  const renderContent = () => {
+    switch (view) {
+      case "login":
+        return <Login />;
+      case "signup":
+        return <SignUp />;
+      default:
+        return (
+          <div className="startUpContainer">
+            <h1 className="title">Trail Tuned </h1>
+            <div className="buttonContainer">
+              <button onClick={() => setView("login")}>Login</button>
+              <button onClick={() => setView("signup")}>Sign Up</button>
+            </div>
+            <div className="divider"></div>
+            <div className="oAuthContainer">
+              <button>Google oAuth</button>
+              <button>Apple oAuth</button>
+              <button>Strava oAuth</button>
+            </div>
+          </div>
+        );
+    }
   };
 
-  const handleGoogleLoginError = () => {
-    // Handle Google OAuth failure
-    console.error("Google login failed");
-  };
-
-  return (
-    <div className="backGround">
-      <div className="loginContainer">
-        <img src="/path/to/your/logo.png" alt="App Logo" />
-        <div className="buttonContainer">
-          <button onClick={() => navigate("/login.js")}>Login</button>
-          <button onClick={() => navigate("/signUp.js")}>Sign Up </button>
-        </div>
-        <div className="oAuthContainer">
-          {/* Google */}
-          <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginError}
-            />
-          </GoogleOAuthProvider>
-
-          {/* Apple */}
-          <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginError}
-            />
-          </GoogleOAuthProvider>
-
-          {/* Strava?  */}
-          <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginError}
-            />
-          </GoogleOAuthProvider>
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="backGround">{renderContent()}</div>;
 }
 
 export default StartUpPage;

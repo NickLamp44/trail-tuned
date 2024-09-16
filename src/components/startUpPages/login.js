@@ -1,30 +1,27 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Styling
-import "login.css";
+import "./login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/login", { email, password });
-      //response contains a token or user data
       localStorage.setItem("token", response.data.token);
-      navigate("/dashboard"); // Redirect to dashboard after login
+      // Handle successful login (e.g., navigate to dashboard)
     } catch (err) {
       setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="container">
+    <div className="loginContainer">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -42,7 +39,9 @@ function Login() {
           required
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Login</button>
+        <button className="loginButton" type="submit">
+          Login
+        </button>
       </form>
     </div>
   );
